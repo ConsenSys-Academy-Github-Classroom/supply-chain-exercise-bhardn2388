@@ -22,8 +22,8 @@ contract SupplyChain {
     // <struct Item: name, sku, price, state, seller, and buyer>
     struct Item {
         string name;
-        uint256 sku;
-        uint256 price;
+        uint sku;
+        uint price;
         State state;
         address payable seller;
         address payable buyer;
@@ -132,7 +132,11 @@ contract SupplyChain {
         emit LogSold(sku);
     }
 
-    function shipItem(uint256 sku) public sold(sku) verifyCaller(items[sku].seller) {
+    function shipItem(uint256 sku)
+        public
+        sold(sku)
+        verifyCaller(items[sku].seller)
+    {
         items[sku].state = State.Shipped;
         emit LogShipped(sku);
     }
